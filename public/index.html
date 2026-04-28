@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RITUAL — Tu escenario musical</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <section class="screen screen-login active-screen" id="loginScreen">
+    <div class="login-content">
+      <h1 class="pixel-title">arma tu escenario musical perfecto</h1>
+      <div class="bird-wrapper">
+        <img src="./assets/diseno1.gif" alt="Mascota RITUAL" class="hero-gif" />
+      </div>
+      <a href="/auth/spotify" class="spotify-btn">conectar con spotify</a>
+    </div>
+  </section>
+
+  <section class="screen screen-options" id="optionsScreen">
+    <div class="ritual-card">
+      <h2 class="main-title">Armá tu ritual</h2>
+      <form id="ritualForm" action="/generate-playlist" method="POST">
+        <div class="card-columns">
+          
+          <div class="left-column">
+            <div class="section-label">¿Cuánto tiempo tenés?</div>
+            <div class="time-display-wrapper">
+              <input type="number" id="inp-hh" name="hours" min="0" max="23" placeholder="00" class="time-box" required>
+              <span class="time-colon">:</span>
+              <input type="number" id="inp-mm" name="minutes" min="0" max="59" placeholder="00" class="time-box" required>
+            </div>
+          </div>
+
+          <div class="right-column">
+            <div class="section-label">¿Qué querés escuchar hoy?</div>
+            <div class="genres-grid" id="genresGrid">
+              <button type="button" class="genre-chip selected" data-value="liked-songs">Mis Favoritas</button>
+              <button type="button" class="genre-chip" data-value="deep-work">Modo Foco</button>
+              <button type="button" class="genre-chip" data-value="relax">Momento Zen</button>
+              <button type="button" class="genre-chip" data-value="workout">Energía</button>
+              <button type="button" class="genre-chip" data-value="creative">Inspiración</button>
+              <button type="button" class="genre-chip" data-value="sleep">Noche</button>
+              <button type="button" class="genre-chip" data-value="party">Fiesta</button>
+              <button type="button" class="genre-chip" data-value="rock">rock</button>
+              <button type="button" class="genre-chip" data-value="pop">pop</button>
+              <button type="button" class="genre-chip" data-value="hip-hop">hip-hop</button>
+              <button type="button" class="genre-chip" data-value="electronic">electronic</button>
+              <button type="button" class="genre-chip" data-value="ambient">ambient</button>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="selectedGenres" id="selectedGenres" />
+        <button type="submit" class="generate-btn">Generar Playlist</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="screen screen-loading" id="loadingScreen">
+    <div class="loading-content">
+      <img src="./assets/diseno3.gif" alt="Loading Lemon" class="loading-gif" />
+      <div class="loading-pill">Armando tu ritual...</div>
+    </div>
+  </section>
+
+  <section class="screen screen-result" id="resultScreen">
+    <div class="result-card">
+      <h2 class="result-title">¡Tu ritual está listo!</h2>
+      <div class="playlist-cover">
+        <img src="" alt="Playlist Cover" id="playlistImage" />
+      </div>
+      <button class="save-btn">Guardar en Spotify</button>
+      <button class="retry-btn">Mezclar de nuevo</button>
+    </div>
+  </section>
+
+  <script>
+    /* Lógica JavaScript de la App */
+    const chips = document.querySelectorAll(".genre-chip");
+    const hiddenInput = document.getElementById("selectedGenres");
+    let selectedGenres = ["liked-songs"];
+
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        const value = chip.dataset.value;
+        chip.classList.toggle("selected");
+        if (selectedGenres.includes(value)) {
+          selectedGenres = selectedGenres.filter(item => item !== value);
+        } else {
+          selectedGenres.push(value);
+        }
+        hiddenInput.value = JSON.stringify(selectedGenres);
+      });
+    });
+    hiddenInput.value = JSON.stringify(selectedGenres);
+
+    const form = document.getElementById("ritualForm");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      document.getElementById("optionsScreen").classList.remove("active-screen");
+      document.getElementById("loadingScreen").classList.add("active-screen");
+      setTimeout(() => {
+        document.getElementById("loadingScreen").classList.remove("active-screen");
+        document.getElementById("resultScreen").classList.add("active-screen");
+      }, 3000);
+    });
+
+    const retryBtn = document.querySelector(".retry-btn");
+    retryBtn.addEventListener("click", () => {
+      document.getElementById("resultScreen").classList.remove("active-screen");
+      document.getElementById("optionsScreen").classList.add("active-screen");
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('status') === 'success') {
+      document.getElementById("loginScreen").classList.remove("active-screen");
+      document.getElementById("optionsScreen").classList.add("active-screen");
+      window.history.replaceState({}, document.title, "/");
+    }
+  </script>
+</body>
+</html>

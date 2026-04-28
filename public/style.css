@@ -1,0 +1,75 @@
+/* ========================================= */
+/* VARIABLES Y CONFIGURACIÓN BASE */
+/* ========================================= */
+:root {
+  --primary-yellow: #FAD062;
+  --primary-blue: #A2BDF4;
+  --accent-green: #2B885C;
+  --shadow-soft: 0 14px 25px rgba(45, 52, 84, 0.25);
+  --transition: all 0.25s ease;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 100%; min-height: 100vh; overflow: hidden; font-family: 'Cormorant Garamond', serif; }
+
+.screen { width: 100%; min-height: 100vh; display: none; align-items: center; justify-content: center; position: relative; }
+.active-screen { display: flex; }
+
+/* ========================================= */
+/* PANTALLA 1 - LOGIN (FONDO VERDE) */
+/* ========================================= */
+.screen-login { background: #059350; overflow: hidden; }
+.login-content { z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 35px; width: 100%; height: 100vh; }
+.pixel-title { font-family: 'Pixelify Sans', sans-serif; font-size: 3.2rem; color: white; letter-spacing: 2px; text-align: center; max-width: 900px; text-transform: lowercase; }
+.bird-wrapper { height: 45vh; max-height: 450px; display: flex; align-items: center; justify-content: center; }
+.hero-gif { height: 100%; width: auto; object-fit: contain; }
+
+/* ESTE ES EL BOTÓN QUE SE HABÍA BORRADO */
+.spotify-btn { text-decoration: none; font-family: 'Pixelify Sans', sans-serif; color: var(--accent-green); background: var(--primary-blue); padding: 18px 55px; border-radius: 999px; font-size: 2rem; box-shadow: var(--shadow-soft); transition: var(--transition); border: 2px solid transparent; }
+.spotify-btn:hover { transform: translateY(-3px); background: white; }
+
+/* ========================================= */
+/* PANTALLA 2 - OPCIONES */
+/* ========================================= */
+.screen-options { background: var(--primary-yellow); }
+.ritual-card { width: min(900px, 92%); background: var(--primary-blue); border-radius: 60px; padding: 45px 60px; box-shadow: var(--shadow-soft); }
+.main-title { color: var(--accent-green); font-size: 4rem; text-align: center; margin-bottom: 25px; }
+.card-columns { display: flex; flex-direction: row; gap: 50px; width: 100%; align-items: flex-start; margin-bottom: 20px; }
+.left-column { flex: 0 0 35%; display: flex; flex-direction: column; align-items: center; }
+.right-column { flex: 1; }
+.section-label { width: 100%; background: rgba(255,255,255,0.5); color: var(--accent-green); border-radius: 40px; text-align: center; padding: 12px; font-size: 1.8rem; margin-bottom: 20px; }
+.time-display-wrapper { display: flex; align-items: center; justify-content: center; gap: 15px; }
+.time-box { width: 110px; background: rgba(255, 255, 255, 0.55); border: 2px solid transparent; padding: 15px; text-align: center; font-size: 3.5rem; color: #13492f; font-family: 'Pixelify Sans', sans-serif; border-radius: 12px; outline: none; }
+.time-colon { font-size: 3.5rem; color: var(--accent-green); font-family: 'Pixelify Sans', sans-serif; font-weight: 700; }
+.genres-grid { width: 100%; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.genre-chip { border: none; background: rgba(255,255,255,0.58); color: var(--accent-green); padding: 10px 18px; border-radius: 999px; cursor: pointer; font-size: 1.2rem; font-family: 'Cormorant Garamond', serif; transition: var(--transition); }
+.genre-chip.selected { background: var(--accent-green); color: white; }
+.generate-btn { margin: 30px auto 0 auto; display: block; border: none; cursor: pointer; background: #FCEAEA; color: var(--accent-green); padding: 18px 45px; border-radius: 999px; font-size: 2rem; font-weight: 600; box-shadow: 0 14px 18px rgba(90, 50, 50, 0.2); transition: var(--transition); }
+.generate-btn:hover { transform: translateY(-3px); background: white; }
+
+/* ========================================= */
+/* PANTALLA 3 - LOADING (FONDO CELESTE) */
+/* ========================================= */
+.screen-loading { background: #88C9D4; }
+.loading-content { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 35px; width: 100%; height: 100vh; }
+.loading-gif { height: 30vh; max-height: 300px; width: auto; object-fit: contain; animation: pulse 1.8s infinite ease-in-out; }
+.loading-pill { background: var(--primary-blue); padding: 15px 45px; border-radius: 999px; color: var(--accent-green); font-size: 2.2rem; box-shadow: var(--shadow-soft); }
+
+/* ========================================= */
+/* PANTALLA 4 - RESULTADOS */
+/* ========================================= */
+.screen-result { background: var(--primary-yellow); }
+.result-card { width: min(900px, 90%); background: var(--primary-blue); border-radius: 60px; padding: 40px; display: flex; flex-direction: column; align-items: center; gap: 25px; }
+.result-title { font-size: 3.3rem; color: var(--accent-green); }
+.playlist-cover { width: 280px; height: 280px; background: #d8d8d8; border-radius: 20px; overflow: hidden; }
+.playlist-cover img { width: 100%; height: 100%; object-fit: cover; }
+.save-btn, .retry-btn { border: none; cursor: pointer; transition: var(--transition); color: var(--accent-green); border-radius: 18px; font-size: 2rem; padding: 18px 35px; }
+.save-btn { background: #fff3f3; box-shadow: 0 10px 14px rgba(0,0,0,0.12); }
+.retry-btn { background: #f4ebeb; }
+.save-btn:hover, .retry-btn:hover { transform: translateY(-3px); background: white; }
+
+/* ========================================= */
+/* ANIMACIONES Y RESPONSIVE */
+/* ========================================= */
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+@media (max-width: 768px) { .card-columns { flex-direction: column; gap: 20px; } .left-column { width: 100%; } .time-box { width: 80px; font-size: 2.5rem; } .time-colon { font-size: 2.5rem; } .pixel-title { font-size: 1.8rem; } }
