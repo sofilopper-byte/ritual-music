@@ -29,4 +29,4 @@ El repositorio está organizado para una integración inmediata con el servidor 
 4.  **Guardado Directo:** Opción para exportar la lista resultante directamente a la cuenta de Spotify del usuario[cite: 4].
 
 ---
-*Desarrollado como parte de mi portafolio de Ingeniería en Sistemas e Innovación Digital.* 
+*Desarrollado por Sofia Lopez  como parte de un proyecto de Ingeniería en Sistemas e Innovación Digital.* 
